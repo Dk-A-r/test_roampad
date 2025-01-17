@@ -1,2 +1,2 @@
-x = Input("input some text here :")
+x = input("input some text here :")
 print(x)
