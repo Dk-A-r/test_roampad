@@ -5,7 +5,11 @@ name: Overwrite Repository
 
 on:
   workflow_dispatch:
-  
+
+defaults:
+  run:
+    working-directory: ./my-ml-package
+
 #Enable docker services with dind
 jobs:
   generate-notebook:
@@ -30,7 +34,7 @@ jobs:
         run: |
           echo "${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
           echo "Login completed successfully"
-          
+
       # Step 4: Build image for generation
       - name: Build image
         run: |
@@ -54,7 +58,7 @@ jobs:
         run: |
           git add -A
           git commit -m "CI/CD: Overwrite repository with new changes"
-          git push origin main 
+          git push origin main
 
       # Step 8: Tag image for Gitlab Registry
       - name: Tag Docker image
