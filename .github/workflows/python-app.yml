@@ -54,7 +54,7 @@ jobs:
         run: |
           git add -A
           git commit -m "CI/CD: Overwrite repository with new changes"
-          git push --force origin main 
+          git push origin main 
 
       # Step 8: Tag image for Gitlab Registry
       - name: Tag Docker image
