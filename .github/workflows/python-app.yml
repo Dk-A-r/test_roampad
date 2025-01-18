@@ -59,4 +59,4 @@ jobs:
       # Step 8: Tag image for Gitlab Registry
       - name: Tag Docker image
         run: |
-          docker tag my-image:latest registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
+          docker tag notebook-generator:latest registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
