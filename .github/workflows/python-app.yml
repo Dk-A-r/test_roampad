@@ -83,3 +83,10 @@ jobs:
         run: |
           twine upload --repository-url https://gitlab.com/api/v4/projects/66270948/packages/pypi dist/*
 
+      # Step 12: Pages
+      - name: Pages publication
+        run: |
+          mkdir -p public
+          cd public
+          jupyter nbconvert --execute --to html ../start_note.ipynb
+
