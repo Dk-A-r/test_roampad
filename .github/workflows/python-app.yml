@@ -5,10 +5,15 @@ name: Overwrite Repository
 
 on:
   workflow_dispatch:
-
+  
+#Enable docker services with dind
 jobs:
-  overwrite-repo:
+  generate-notebook:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:20.20-dind
+        options: --privileged
 
     steps:
       # Step 1: Checkout the repository
@@ -16,10 +21,19 @@ jobs:
         uses: actions/checkout@v3
 
       # Step 2: Make your changes
-      - name: Make Changes
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          python nbgenerate.py
+          
+      # Step 3: Build image for generation
+      - name: Build image
+        run: |
+          docker build -t notebook-generator .
+
+      # Step 4: Generate NB in container
+      - name: Generate NB
+        run: |
+          docker run -v .:/app notebook-generator
 
       # Step 3: Configure Git
       - name: Configure Git
