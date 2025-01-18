@@ -23,7 +23,7 @@ jobs:
       # Step 2: Make your changes
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements.txt --upgrade pip setuptools wheel twine
 
       # Step 3: Login in Gitlab Registry
       - name: Log in to GitLab Container Registry
