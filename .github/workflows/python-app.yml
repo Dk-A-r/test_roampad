@@ -64,4 +64,4 @@ jobs:
       #Step 9: Push Docker image to Gitlab Registry
       - name: Push Docker image
         run: |
-          docker push registry.gitlab.com/my-group/my-project/my-image:latest
+          docker push registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
