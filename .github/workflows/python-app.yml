@@ -92,6 +92,8 @@ jobs:
           mkdir -p public
           cd public
           jupyter nbconvert --execute --to html ../start_note.ipynb
+          cd ..
+          
           git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
           cd gitlab-repo
           
