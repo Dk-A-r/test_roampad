@@ -85,8 +85,22 @@ jobs:
 
       # Step 12: Pages
       - name: Pages publication
+        env:
+          GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
+          GITLAB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}
         run: |
           mkdir -p public
           cd public
           jupyter nbconvert --execute --to html ../start_note.ipynb
+          git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
+          cd gitlab-repo
+          
+          git checkout -B pages
+          mkdir -p public
+          cp -r ../public/* ./public
+
+          git add -A
+          git commit -m "Publish static site from GitHub Actions"
+          git push origin pages
+          
 
