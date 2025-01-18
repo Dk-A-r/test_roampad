@@ -65,7 +65,21 @@ jobs:
         run: |
           docker tag notebook-generator:latest registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
 
-      #Step 9: Push Docker image to Gitlab Registry
+      # Step 9: Push Docker image to Gitlab Registry
       - name: Push Docker image
         run: |
           docker push registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
+
+      # Step 10: Build project package
+      - name: Build Python Package
+        run: |
+          python setup.py sdist bdist_wheel
+
+      # Step 11: Push package into Gitlab Packages
+      - name: Publish Package on Gitlab
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}
+        run: |
+          twine upload --repository-url https://gitlab.com/api/v4/projects/66270948/packages/pypi dist/*
+
