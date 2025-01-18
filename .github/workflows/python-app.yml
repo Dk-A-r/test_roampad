@@ -24,24 +24,30 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+
+      # Step 3: Login in Gitlab Registry
+      - name: Log in to GitLab Container Registry
+        run: |
+          echo "${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
+          echo "Login completed successfully"
           
-      # Step 3: Build image for generation
+      # Step 4: Build image for generation
       - name: Build image
         run: |
           docker build -t notebook-generator .
 
-      # Step 4: Generate NB in container
+      # Step 5: Generate NB in container
       - name: Generate NB
         run: |
           docker run -v .:/app notebook-generator
 
-      # Step 3: Configure Git
+      # Step 6: Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 4: Add, Commit, and Push
+      # Step 7: Add, Commit, and Push
       - name: Commit and Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
