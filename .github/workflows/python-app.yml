@@ -97,6 +97,7 @@ jobs:
           
           git checkout -B pages
           mkdir -p public
+          ls -a
           cp -r ../public/* ./public
 
           git add -A
