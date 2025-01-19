@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 VERSION = "0.0.1"
 DESCRIPTION = "My first ML package"
@@ -13,7 +13,15 @@ setup(
     author_email="<youremail@email.com>",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    packages=find_packages(),
+    py_modules=['analyze_missing',
+                'class_balance',
+                'corr_analys',
+                'create_pairplot',
+                'eda',
+                'load_data',
+                'nbgenerate'],
+    package_data={'mymlpackage': ['data.csv']}
+    packages=['mymlpackage']
     install_requires=[
         "pandas",
         "seaborn",
