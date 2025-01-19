@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 VERSION = "0.0.1"
 DESCRIPTION = "My first ML package"
@@ -23,7 +23,7 @@ setup(
         "nbgenerate",
     ],
     package_data={"mymlpackage": ["data.csv"]},
-    packages=["mymlpackage"],
+    packages=find_packages(),
     install_requires=[
         "pandas",
         "seaborn",
