@@ -15,7 +15,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
     install_requires=[],  # add any additional packages that
-    # needs to be installed along with your package. Eg: 'caer'
+    # needs to be installed
     keywords=["python", "first package"],
     classifiers=["ML"],
 )

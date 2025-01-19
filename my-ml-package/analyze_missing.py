@@ -29,10 +29,7 @@ def analyze_missing(df: pd.DataFrame) -> dict:
     plt.tight_layout()
     plt.savefig("./output_pages/png/missing_values.png")
     plt.close()
-    # else:
-    # print("Missing values are all at zero, so it has no sense"
-    # + "to plot graphs of missing values" ")
-    # + "to plot graphs of missing values")
+
     if missing_values.sum() == 0:
         print(
             "As missing values are all at zero, the visualisation"

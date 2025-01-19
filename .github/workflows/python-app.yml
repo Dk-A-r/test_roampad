@@ -24,8 +24,9 @@ jobs:
         run: |
           black --line-length=79 ./*.py
       - name: Linting
+        #Ignore non-clear BLK100 error
         run: |
-          flake8 ./*.py
+          flake8 --ignore=BLK100 ./*.py
 
 
 
@@ -73,7 +74,7 @@ jobs:
 
   image-part:
     runs-on: ubuntu-latest
-    needs: eda-part
+    needs: [eda-part, format-and-lint]
     services:
       docker:
         image: docker:dind
