@@ -100,7 +100,7 @@ jobs:
           git checkout -B pages
           mkdir -p public
           ls ..
-          cp -r ../public/* ./public
+          cp -r "../public/"* ./public
 
           git add -A
           git commit -m "Publish static site from GitHub Actions"
