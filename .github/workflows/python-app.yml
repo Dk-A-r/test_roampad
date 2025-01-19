@@ -136,8 +136,8 @@ jobs:
             git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
             cd gitlab-repo
 
-            git checkout -B pages
-            git branch --set-upstream-to=origin/pages pages
+            git checkout -B main
+            git branch --set-upstream-to=origin/main main
             git fetch
             git merge --ff
             mkdir -p public
@@ -150,6 +150,6 @@ jobs:
 
             git add -A
             git commit -m "Publish static site from GitHub Actions"
-            git push origin pages
+            git push origin main
 
 
