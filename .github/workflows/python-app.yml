@@ -139,7 +139,7 @@ jobs:
             git checkout -B pages
             git branch --set-upstream-to=origin/pages pages
             git fetch
-            git merge -ff
+            git merge --ff
             mkdir -p public
             ls ..
             cp -r ../public ./public
