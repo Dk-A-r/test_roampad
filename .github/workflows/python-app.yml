@@ -68,7 +68,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          rm __pycache__
+          rm -r __pycache__
           git add -A
           git commit -m "CI/CD: Overwrite repository with new changes"
           git push origin main
