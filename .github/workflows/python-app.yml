@@ -12,7 +12,7 @@ defaults:
 
 #Enable docker services with dind
 jobs:
-  generate-notebook:
+  eda-part:
     runs-on: ubuntu-latest
     services:
       docker:
@@ -29,16 +29,10 @@ jobs:
         run: |
           pip install -r requirements.txt --upgrade pip setuptools wheel twine
 
-      # Step 3: Login in Gitlab Registry
-      - name: Log in to GitLab Container Registry
-        run: |
-          echo "${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
-          echo "Login completed successfully"
-
       # Step 4: Build image for generation
       - name: Build image
         run: |
-          docker build -t notebook-generator .
+          docker build -t notebook-generator:latest .
 
       # Step 5: Generate NB in container
       - name: Generate NB
@@ -60,6 +54,25 @@ jobs:
           git commit -m "CI/CD: Overwrite repository with new changes"
           git push origin main
 
+  image-part:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+    steps:
+
+      # Step 3: Login in Gitlab Registry
+      - name: Log in to GitLab Container Registry
+        run: |
+          echo "${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
+          echo "Login completed successfully"
+
+      # Step 4: Build image for generation
+      - name: Build image
+        run: |
+          docker build -t notebook-generator:latest .
+
       # Step 8: Tag image for Gitlab Registry
       - name: Tag Docker image
         run: |
@@ -70,12 +83,19 @@ jobs:
         run: |
           docker push registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
 
+  package-part:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 2: Make your changes
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt --upgrade pip setuptools wheel twine
       # Step 10: Build project package
       - name: Build Python Package
         run: |
           python setup.py sdist bdist_wheel
 
-      # Step 11: Push package into Gitlab Packages
+    # Step 11: Push package into Gitlab Packages
       - name: Publish Package on Gitlab
         env:
           TWINE_USERNAME: __token__
@@ -83,27 +103,30 @@ jobs:
         run: |
           twine upload --repository-url https://gitlab.com/api/v4/projects/66270948/packages/pypi dist/*
 
+  pages:
+      runs-on: ubuntu-latest
+      steps:
       # Step 12: Pages
-      - name: Pages publication
-        env:
-          GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
-          GITLAB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}
-        run: |
-          mkdir -p public
-          cd public
-          jupyter nbconvert --execute --to html ../start_note.ipynb
-          cd ..
-          
-          git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
-          cd gitlab-repo
-          
-          git checkout -B pages
-          mkdir -p public
-          ls ..
-          cp -r "../public/"* ./public
+        - name: Pages publication
+          env:
+            GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
+            GITLAB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}
+          run: |
+            mkdir -p public
+            cd public
+            jupyter nbconvert --execute --to html ../start_note.ipynb
+            cd ..
 
-          git add -A
-          git commit -m "Publish static site from GitHub Actions"
-          git push origin pages
-          
+            git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
+            cd gitlab-repo
+
+            git checkout -B pages
+            mkdir -p public
+            ls ..
+            cp -r "../public/"* ./public
+
+            git add -A
+            git commit -m "Publish static site from GitHub Actions"
+            git push origin pages
+
 
