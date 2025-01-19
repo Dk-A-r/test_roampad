@@ -137,6 +137,7 @@ jobs:
             cd gitlab-repo
 
             git checkout -B pages
+            git branch --set-upstream-to=origin/pages pages
             git pull
             mkdir -p public
             ls ..
