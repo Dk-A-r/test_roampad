@@ -130,7 +130,7 @@ jobs:
             git config --global user.email "dkarpov.legal@gmail.com"
             git config --global user.name ${GITLAB_USERNAME}
             mkdir -p public
-            jupyter nbconvert --execute --to html start_note.ipynb
+            jupyter nbconvert --execute --to html --embed-images start_note.ipynb
             mv start_note.html ./public
 
             git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
