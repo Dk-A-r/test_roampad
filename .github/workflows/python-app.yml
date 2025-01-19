@@ -142,7 +142,9 @@ jobs:
             git merge --ff
             mkdir -p public
             ls ..
-            cp -r ../public ./public
+            #cp -r ../public ./public
+            mv ../public/start_note.html ./public/start_note.html
+
 
             tree ..
 
