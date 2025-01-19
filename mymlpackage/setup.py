@@ -13,15 +13,17 @@ setup(
     author_email="<youremail@email.com>",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
-    py_modules=['analyze_missing',
-                'class_balance',
-                'corr_analys',
-                'create_pairplot',
-                'eda',
-                'load_data',
-                'nbgenerate'],
-    package_data={'mymlpackage': ['data.csv']}
-    packages=['mymlpackage']
+    py_modules=[
+        "analyze_missing",
+        "class_balance",
+        "corr_analys",
+        "create_pairplot",
+        "eda",
+        "load_data",
+        "nbgenerate",
+    ],
+    package_data={"mymlpackage": ["data.csv"]},
+    packages=["mymlpackage"],
     install_requires=[
         "pandas",
         "seaborn",
