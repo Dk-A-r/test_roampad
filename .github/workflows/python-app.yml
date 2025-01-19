@@ -142,6 +142,8 @@ jobs:
             ls ..
             cp -r ../public ./public
 
+            tree ..
+
             git add -A
             git commit -m "Publish static site from GitHub Actions"
             git push origin pages
