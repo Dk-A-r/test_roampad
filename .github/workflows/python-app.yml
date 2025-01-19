@@ -137,6 +137,7 @@ jobs:
             cd gitlab-repo
 
             git checkout -B pages
+            git pull
             mkdir -p public
             ls ..
             cp -r ../public ./public
