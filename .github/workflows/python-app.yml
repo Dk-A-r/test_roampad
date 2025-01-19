@@ -12,6 +12,23 @@ defaults:
 
 #Enable docker services with dind
 jobs:
+  format-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          pip install flake8-black
+      - name: Formatting
+        run: |
+          black ./*.py
+      - name: Linting
+        run: |
+          flake8 ./*.py
+
+
+
   eda-part:
     runs-on: ubuntu-latest
     services:
@@ -29,23 +46,23 @@ jobs:
         run: |
           pip install -r requirements.txt --upgrade pip setuptools wheel twine
 
-      # Step 4: Build image for generation
+      # Step 3: Build image for generation
       - name: Build image
         run: |
           docker build -t notebook-generator:latest .
 
-      # Step 5: Generate NB in container
+      # Step 4: Generate NB in container (and test image)
       - name: Generate NB
         run: |
           docker run -v .:/app notebook-generator
 
-      # Step 6: Configure Git
+      # Step 5: Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 7: Add, Commit, and Push
+      # Step 6: Add, Commit, and Push
       - name: Commit and Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,23 +82,23 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
-      # Step 3: Login in Gitlab Registry
+      # Step 2: Login in Gitlab Registry
       - name: Log in to GitLab Container Registry
         run: |
           echo "${{ secrets.GITLAB_PERSONAL_ACCESS_TOKEN }}" | docker login registry.gitlab.com -u "${{ secrets.GITLAB_USERNAME }}" --password-stdin
           echo "Login completed successfully"
 
-      # Step 4: Build image for generation
+      # Step 3: Build image for generation
       - name: Build image
         run: |
           docker build -t notebook-generator:latest .
 
-      # Step 8: Tag image for Gitlab Registry
+      # Step 4: Tag image for Gitlab Registry
       - name: Tag Docker image
         run: |
           docker tag notebook-generator:latest registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
 
-      # Step 9: Push Docker image to Gitlab Registry
+      # Step 5: Push Docker image to Gitlab Registry
       - name: Push Docker image
         run: |
           docker push registry.gitlab.com/${{ secrets.GITLAB_USERNAME }}/dummy_repo/notebook-generator:latest
@@ -97,12 +114,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt --upgrade pip setuptools wheel twine
-      # Step 10: Build project package
+      # Step 3: Build project package
       - name: Build Python Package
         run: |
           python setup.py sdist bdist_wheel
 
-    # Step 11: Push package into Gitlab Packages
+      # Step 4: Push package into Gitlab Packages
       - name: Publish Package on Gitlab
         env:
           TWINE_USERNAME: __token__
@@ -121,7 +138,7 @@ jobs:
         - name: Install dependencies
           run: |
             pip install -r requirements.txt --upgrade pip setuptools wheel twine
-        # Step 12: Pages
+        # Step 2: Pages
         - name: Pages publication
           env:
             GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
