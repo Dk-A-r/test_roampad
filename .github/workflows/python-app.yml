@@ -24,9 +24,9 @@ jobs:
         run: |
           black --line-length=79 ./*.py
       - name: Linting
-        #Ignore non-clear BLK100 error
+        #Ignore non-clear BLK100 error and W503 to be compatible with Black work
         run: |
-          flake8 --ignore=BLK100 ./*.py
+          flake8 --ignore=BLK100,W503 ./*.py
 
 
 
