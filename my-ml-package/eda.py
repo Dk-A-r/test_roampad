@@ -1,6 +1,3 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 from load_data import load_data
 from analyze_missing import analyze_missing
 from create_pairplot import create_pairplot

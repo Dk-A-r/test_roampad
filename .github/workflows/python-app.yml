@@ -22,7 +22,7 @@ jobs:
           pip install flake8-black
       - name: Formatting
         run: |
-          black ./*.py
+          black --line-length=79 ./*.py
       - name: Linting
         run: |
           flake8 ./*.py
