@@ -140,6 +140,9 @@ jobs:
             ls ..
             cp -r ../public ./public
 
+            git config --global user.email "dkarpov.legal@gmail.com"
+            git config --global user.name ${GITLAB_USERNAME}
+
             git add -A
             git commit -m "Publish static site from GitHub Actions"
             git push origin pages
