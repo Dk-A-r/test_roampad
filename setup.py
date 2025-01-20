@@ -24,6 +24,7 @@ setup(
     ],
     package_data={"mymlpackage": ["data.csv"]},
     packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         "pandas",
         "seaborn",
