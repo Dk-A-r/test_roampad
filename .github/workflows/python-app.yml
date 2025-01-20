@@ -45,7 +45,7 @@ jobs:
       # Step 2: Make your changes
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt --upgrade pip setuptools wheel twine
+          pip install -r ../requirements.txt --upgrade pip setuptools wheel twine
 
       # Step 3: Build image for generation
       - name: Build image
@@ -108,6 +108,9 @@ jobs:
   package-part:
     runs-on: ubuntu-latest
     needs: image-part
+    defaults:
+      run:
+        working-directory: .
     steps:
       # Step 1: Checkout the repository
       - name: Checkout Code
@@ -139,7 +142,7 @@ jobs:
           # Step 2: Make your changes
         - name: Install dependencies
           run: |
-            pip install -r requirements.txt --upgrade pip setuptools wheel twine
+            pip install -r ../requirements.txt --upgrade pip setuptools wheel twine
         # Step 2: Pages
         - name: Pages publication
           env:
