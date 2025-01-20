@@ -1,0 +1,5 @@
+include README.md
+include LICENSE
+include mymlpackage/data.csv
+recursive-include mymlpackage *.py
+recursive-include tests *.py
