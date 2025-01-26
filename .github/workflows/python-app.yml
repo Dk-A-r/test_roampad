@@ -71,7 +71,7 @@ jobs:
           #rm -r __pycache__
           git add -A
           git commit -m "CI/CD: Overwrite repository with new changes"
-          git push origin main
+          git push origin package
 
   image-part:
     runs-on: ubuntu-latest
