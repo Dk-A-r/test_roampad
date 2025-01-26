@@ -16,6 +16,7 @@ import sys
 script_dir = "{current_dir}"
 sys.path.append(script_dir)
 print(script_dir)
+print(os.getcwd())
 import eda
 """
 cell1 = nbformat.v4.new_code_cell(source=code)
