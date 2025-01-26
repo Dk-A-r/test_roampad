@@ -13,6 +13,7 @@ setup(
     author_email="<youremail@email.com>",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
+    license="MIT",
     py_modules=[
         "analyze_missing",
         "class_balance",
