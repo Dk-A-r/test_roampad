@@ -3,6 +3,7 @@ import nbformat
 import subprocess
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # project_root = os.path.abspath(os.path.join(current_dir, '..'))
 # sys.path.insert(0, project_root)
 
@@ -15,6 +16,7 @@ code = f"""import os
 import sys
 script_dir = "{current_dir}"
 sys.path.append(script_dir)
+sys.path.append("{project_root}")
 print(script_dir)
 print(os.getcwd())
 import eda
