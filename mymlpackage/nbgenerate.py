@@ -1,11 +1,24 @@
+import os
+import sys
 import nbformat
 import subprocess
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+#project_root = os.path.abspath(os.path.join(current_dir, '..'))
+#sys.path.insert(0, project_root)
+ 
 
 my_note = nbformat.v4.new_notebook()
 cell0 = nbformat.v4.new_markdown_cell(
     source=["# Предварительный анализ данных в CI/CD"]
 )
-code = "import eda"
+code = f"""import os
+import sys
+script_dir = "{current_dir}"
+sys.path.append(script_dir)
+print(script_dir)
+import eda
+"""
 cell1 = nbformat.v4.new_code_cell(source=code)
 cell2 = nbformat.v4.new_markdown_cell(
     source=["# Визуализация пропущенных значений"]

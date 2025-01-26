@@ -1,7 +1,11 @@
 import pandas as pd
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+data_file_path = os.path.join(script_dir, 'data.csv')
 
 
-def load_data(file_path: str = "data.csv") -> pd.DataFrame:
+def load_data(file_path: str = data_file_path) -> pd.DataFrame:
     print("1. Предварительный обзор данных")
     df = pd.read_csv(file_path)
 

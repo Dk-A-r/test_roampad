@@ -1,8 +1,8 @@
-from load_data import load_data
-from analyze_missing import analyze_missing
-from create_pairplot import create_pairplot
-from corr_analys import corr_analys
-from class_balance import class_balance
+from mymlpackage.load_data import load_data
+from mymlpackage.analyze_missing import analyze_missing
+from mymlpackage.create_pairplot import create_pairplot
+from mymlpackage.corr_analys import corr_analys
+from mymlpackage.class_balance import class_balance
 import nbformat
 
 my_note = nbformat.v4.new_notebook()
