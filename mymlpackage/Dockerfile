@@ -11,7 +11,7 @@ COPY . /mymlpackage
 RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Install Python dependencies
-COPY requirements.txt /app
+COPY requirements.txt /mymlpackage
 RUN pip install -r requirements.txt
 #--mount=type=cache,target=/root/.cache/pip \
 
