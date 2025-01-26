@@ -55,7 +55,7 @@ jobs:
       # Step 4: Generate NB in container (and test image)
       - name: Generate NB
         run: |
-          docker run -v .:/mymlpackage notebook-generator bash -c "ls -R /"
+          docker run -v .:/mymlpackage notebook-generator bash -c "tree /"
 
       # Step 5: Configure Git
       - name: Configure Git
