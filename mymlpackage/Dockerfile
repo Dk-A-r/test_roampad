@@ -2,10 +2,10 @@
 FROM python:3.9-slim
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /mymlpackage
 
 # Copy project files into the container
-COPY . /app
+COPY . /mymlpackage
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y python3 python3-pip
