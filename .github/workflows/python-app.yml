@@ -119,6 +119,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt --upgrade pip setuptools wheel twine
+          pip install -U packaging
       # Step 3: Build project package
       - name: Build Python Package
         run: |
