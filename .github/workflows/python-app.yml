@@ -55,7 +55,7 @@ jobs:
       # Step 4: Generate NB in container (and test image)
       - name: Generate NB
         run: |
-          docker run -v .:/mymlpackage notebook-generator
+          docker run -v .:/app notebook-generator
 
       # Step 5: Configure Git
       - name: Configure Git
@@ -71,7 +71,7 @@ jobs:
           #rm -r __pycache__
           git add -A
           git commit -m "CI/CD: Overwrite repository with new changes"
-          git push origin package
+          git push -u origin HEAD
 
   image-part:
     runs-on: ubuntu-latest

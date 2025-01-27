@@ -2,9 +2,10 @@
 FROM python:3.9-slim
 
 # Set the working directory inside the container
-WORKDIR /mymlpackage
+WORKDIR /app
 
 # Copy project files into the container
+RUN mkdir -p /mymlpackage
 COPY . /mymlpackage
 
 # Install system dependencies
@@ -23,4 +24,4 @@ EXPOSE 5000
 RUN echo "Setting up environment..."
 
 # Specify the default command to run when the container starts
-CMD ["python", "nbgenerate.py"]
+CMD ["python", "/mymlpackage/nbgenerate.py"]
