@@ -153,6 +153,7 @@ jobs:
             git config --global user.email "dkarpov.legal@gmail.com"
             git config --global user.name ${GITLAB_USERNAME}
             mkdir -p public
+            tree ..
             #jupyter nbconvert --execute --to html --embed-images start_note.ipynb
             mv start_note.html ./public
 
@@ -169,7 +170,7 @@ jobs:
             mv ../public/start_note.html ./public/index.html
 
 
-            tree ..
+
 
             git add -A
             git commit -m "Publish static site from GitHub Actions"
