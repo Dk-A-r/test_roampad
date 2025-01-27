@@ -141,3 +141,15 @@ subprocess.run(
         "start_note.ipynb",
     ]
 )
+
+subprocess.run(
+    [
+        "jupyter",
+        "nbconvert",
+        "--execute",
+        "--to",
+        "html",
+        "--embed-images",
+        "start_note.ipynb",
+    ]
+)
