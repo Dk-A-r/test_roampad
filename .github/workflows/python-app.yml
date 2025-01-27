@@ -28,8 +28,6 @@ jobs:
         run: |
           flake8 --ignore=BLK100,W503 ./*.py
 
-
-
   eda-part:
     runs-on: ubuntu-latest
     services:
@@ -154,8 +152,6 @@ jobs:
             git config --global user.email "dkarpov.legal@gmail.com"
             git config --global user.name ${GITLAB_USERNAME}
             mkdir -p public
-            tree ..
-            #jupyter nbconvert --execute --to html --embed-images start_note.ipynb
             mv start_note.html ./public
 
             git clone https://${GITLAB_USERNAME}:${GITLAB_PERSONAL_ACCESS_TOKEN}@gitlab.com/dkarpov.legal/dummy_repo.git gitlab-repo
@@ -166,12 +162,7 @@ jobs:
             git fetch
             git merge --ff
             mkdir -p public
-            ls ..
-            #cp -r ../public ./public
             mv ../public/start_note.html ./public/index.html
-
-
-
 
             git add -A
             git commit -m "Publish static site from GitHub Actions"
